@@ -1,12 +1,13 @@
 package com.example.eugene.solid.lsp;
 
 /**
- * Created by user on 05.01.18.
+ * Created by eugene on 05.01.18.
  */
 
+// Liskov Substitution Principle (LSP):
 // Derived classes must be substitutable for their base classes
 // without changing of main program functionality.
-public class LiskovSubstitution {
+public class LiskovSubstitutionPrincipleTester {
     public static void main(String[] args) {
         PremiumAccount premiumAccount = new PremiumAccount();
         AccountPriceCalculator calculator = new AccountPriceCalculator(premiumAccount);
