@@ -17,6 +17,8 @@ class ShapeDataPrinter {
     }
 }
 
+// correct - classes are open for extensions: they implements shape functionality
+// and they can implement something else
 class Circle implements Shape {
     private double radius;
 
@@ -46,6 +48,7 @@ class Rectangle implements Shape {
 }
 
 interface Shape {
+    // correct - function can have a different implementations
     double getArea();
 }
 
