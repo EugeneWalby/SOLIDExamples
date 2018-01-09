@@ -23,6 +23,7 @@ abstract class Account {
 }
 
 class FreeAccount extends Account {
+    // correct - free account has no a price
     @Override
     public double getTotalPrice() {
         return 0;
@@ -36,6 +37,7 @@ class PremiumAccount extends Account {
         this.price = price;
     }
 
+    // correct - premium account has a certain price
     @Override
     public double getTotalPrice() {
         return price;
@@ -50,6 +52,7 @@ class NewYearPremiumAccount extends PremiumAccount {
         this.discount = discount;
     }
 
+    // correct - New Year premium account has a price with a discount
     @Override
     public double getTotalPrice() {
         return price - price * (discount / 100.0);
