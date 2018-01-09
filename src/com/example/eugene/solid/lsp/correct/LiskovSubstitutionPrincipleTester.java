@@ -7,11 +7,14 @@ public class LiskovSubstitutionPrincipleTester {
     public static void main(String[] args) {
         final PremiumAccount premiumAccount = new PremiumAccount();
         AccountPriceCalculator calculator = new AccountPriceCalculator(premiumAccount);
+        // Method calculatePrice() will calculate a different values of price in depending on the account.
         calculator.calculatePrice();
+        System.out.println(premiumAccount.getTotalPrice());
 
         final NewYearPremiumAccount newYearPremiumAccount = new NewYearPremiumAccount();
         calculator = new AccountPriceCalculator(newYearPremiumAccount);
         calculator.calculatePrice();
+        System.out.println(newYearPremiumAccount.getTotalPrice());
     }
 }
 
@@ -25,8 +28,6 @@ class AccountPriceCalculator {
     public void calculatePrice() {
         this.premiumAccount.setPrice(100);
         this.premiumAccount.setDiscount();
-        // Method getTotalPrice() will return a different values of price in depending on the account.
-        System.out.println(this.premiumAccount.getTotalPrice());
     }
 }
 
