@@ -5,53 +5,53 @@ package com.example.eugene.solid.lsp.correct;
 // without changing of main program functionality.
 public class LiskovSubstitutionPrincipleTester {
     public static void main(String[] args) {
-        final PremiumAccount premiumAccount = new PremiumAccount();
-        AccountPriceCalculator calculator = new AccountPriceCalculator(premiumAccount);
-        // Method calculatePrice() will calculate a different values of price in depending on the account.
-        calculator.calculatePrice();
+        final Account freeAccount = new FreeAccount();
+        // correct - method getTotalPrice() returns a result price
+        // but in dependency on the account type
+        System.out.println(freeAccount.getTotalPrice());
+
+        final Account premiumAccount = new PremiumAccount(100);
         System.out.println(premiumAccount.getTotalPrice());
 
-        final NewYearPremiumAccount newYearPremiumAccount = new NewYearPremiumAccount();
-        calculator = new AccountPriceCalculator(newYearPremiumAccount);
-        calculator.calculatePrice();
+        final Account newYearPremiumAccount = new NewYearPremiumAccount(100, 25);
         System.out.println(newYearPremiumAccount.getTotalPrice());
     }
 }
 
-class AccountPriceCalculator {
-    private PremiumAccount premiumAccount;
+abstract class Account {
+    public abstract double getTotalPrice();
+}
 
-    public AccountPriceCalculator(final PremiumAccount premiumAccount) {
-        this.premiumAccount = premiumAccount;
-    }
-
-    public void calculatePrice() {
-        this.premiumAccount.setPrice(100);
-        this.premiumAccount.setDiscount();
+class FreeAccount extends Account {
+    @Override
+    public double getTotalPrice() {
+        return 0;
     }
 }
 
-class PremiumAccount {
+class PremiumAccount extends Account {
     protected double price;
-    protected int discount;
 
-    public void setPrice(final double price) {
+    public PremiumAccount(final double price) {
         this.price = price;
     }
 
-    public void setDiscount() {
-        this.discount = 0;
-    }
-
+    @Override
     public double getTotalPrice() {
-        return price - price * (discount / 100.0);
+        return price;
     }
 }
 
 class NewYearPremiumAccount extends PremiumAccount {
-    // set New Year's discount to 25%
+    protected int discount;
+
+    public NewYearPremiumAccount(final double price, final int discount) {
+        super(price);
+        this.discount = discount;
+    }
+
     @Override
-    public void setDiscount() {
-        this.discount = 25;
+    public double getTotalPrice() {
+        return price - price * (discount / 100.0);
     }
 }
